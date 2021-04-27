@@ -11,9 +11,7 @@ table.table.table-hover
       td= @quest.title
     tr
       th= Quest.human_attribute_name(:description)
-      td= simple_format(h(@quest.description),{}, sanitize:false, wrapper_tag: "div")
-
-/ = link_to '回答する', new_answer_path, class: 'btn btn-primary mr-3'
+      td= auto_link(simple_format(h(@quest.description),{}, sanitize:false, wrapper_tag: "div"))
 
 = form_with model:[@quest, @answer], local: true do |f|
   .form-group

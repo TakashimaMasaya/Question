@@ -1,6 +1,8 @@
 class QuestsController < ApplicationController
   def index
-    @quests = Quest.all
+   @quest_all = Quest.all
+   @q = @quest_all.ransack(params[:q])
+   @quests = @q.result(distinct: true).page(params[:page]).per(10) 
   end
 
   def new
