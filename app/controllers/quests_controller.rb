@@ -13,6 +13,7 @@ class QuestsController < ApplicationController
     @quest = Quest.new(quest_params)
     @quest.user_id = current_user.id
     if @quest.save
+      QuestMailer.creation_email(@quest).deliver_now
       redirect_to quests_url, notice: "質問「#{@quest.title}」を登録しました。"
     else
       render :new
