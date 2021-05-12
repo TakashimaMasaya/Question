@@ -14,7 +14,7 @@ class AnswersController < ApplicationController
     @answer.user_id = current_user.id
     if @answer.save!
       QuestMailer.creation_email(@answer).deliver_now
-      redirect_to quests_url, notice: "回答「#{@answer.title}」を登録しました。"
+      redirect_to @quest, notice: "回答「#{@answer.title}」を登録しました。"
     else
       render :new
     end

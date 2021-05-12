@@ -2,7 +2,19 @@ class QuestsController < ApplicationController
   def index
    @quest_all = Quest.all
    @q = @quest_all.ransack(params[:q])
-   @quests = @q.result(distinct: true).page(params[:page]).per(10) 
+   @quests = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(10) 
+   @quest_answered = @quests.where( solved: true)
+   @quest_unanswered = @quests.where( solved: false)
+  end
+
+  def answered
+    @quest = Quest.find(params[:id])
+    @quest.solved = true
+  end
+
+  def unanswered
+    @quest = Quest.find(params[:id])
+    @quest.solved = false
   end
 
   def new

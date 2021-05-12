@@ -33,7 +33,7 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_path(@user), notice:"ユーザー「#{@user.name}」を更新しました。"
     else
       render :new
-      # redirect_to　edit_admin_user_path(@user)
+      #redirect_to　edit_admin_user_path(@user)
     end
   end
 
