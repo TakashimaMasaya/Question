@@ -10,8 +10,12 @@ h1 質問一覧
 
 = link_to '新規登録', new_quest_path, class: 'btn btn-primary'
 
-/ = button_to '解決済み', @quest, class: 'btn btn-primary answered_btn'
-/ = button_to '解決済み', @quest, class: 'btn btn-primary unanswered_btn'
+.btn.btn-primary.answered_btn
+  | 未解決
+.btn.btn-primary.unanswered_btn
+  | 解決済
+.btn.btn-primary.all_btn
+  | 全て表示
 
 .mb-3
   = paginate @quests
@@ -23,27 +27,21 @@ table.table.table-hover
       th= "アバター"
       th= Quest.human_attribute_name(:title)
       th
+
   tbody
-  - @quests.each do |quest|
-      tr.all
+  - @quest_answered.each do |quest|
+      tr.answered 
         td= image_tag quest.user.avatar,width:"50px" if quest.user.avatar.attached?
         td= link_to quest.title, quest
         td
           = link_to '編集', edit_quest_path(quest), class: 'btn btn-primary mr-3'
           = button_to '削除', quest, method: :delete, data: { confirm: "質問を削除してよろしいですか？"}, class: 'btn btn-danger'
-  / tbody
-  / - @@quest_answered.each do |quest|
-  /     tr.answered 
-  /       td= image_tag quest.user.avatar,width:"50px" if quest.user.avatar.attached?
-  /       td= link_to quest.title, quest
-  /       td
-  /         = link_to '編集', edit_quest_path(quest), class: 'btn btn-primary mr-3'
-  /         = button_to '削除', quest, method: :delete, data: { confirm: "質問を削除してよろしいですか？"}, class: 'btn btn-danger'
-  / tbody
-  / - @@quest_unanswered.each do |quest|
-  /     tr.unanswered 
-  /       td= image_tag quest.user.avatar,width:"50px" if quest.user.avatar.attached?
-  /       td= link_to quest.title, quest
-  /       td
-  /         = link_to '編集', edit_quest_path(quest), class: 'btn btn-primary mr-3'
-  /         = button_to '削除', quest, method: :delete, data: { confirm: "質問を削除してよろしいですか？"}, class: 'btn btn-danger'
+  tbody
+  - @quest_unanswered.each do |quest|
+      tr.unanswered 
+        td= image_tag quest.user.avatar,width:"50px" if quest.user.avatar.attached?
+        td= link_to quest.title, quest
+        td
+          = link_to '編集', edit_quest_path(quest), class: 'btn btn-primary mr-3'
+          = button_to '削除', quest, method: :delete, data: { confirm: "質問を削除してよろしいですか？"}, class: 'btn btn-danger'
+

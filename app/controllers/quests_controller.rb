@@ -8,13 +8,17 @@ class QuestsController < ApplicationController
   end
 
   def answered
-    @quest = Quest.find(params[:id])
-    @quest.solved = true
+    @quest = Quest.find(params[:quest_id])
+    @quest.solved = "true"
+    @quest.save
+    redirect_to quests_url, notice: "解決しました"
   end
 
   def unanswered
-    @quest = Quest.find(params[:id])
-    @quest.solved = false
+    @quest = Quest.find(params[:quest_id])
+    @quest.solved = "false"
+    @quest.save
+    redirect_to quests_url, notice: "未解決"
   end
 
   def new
